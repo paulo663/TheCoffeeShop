@@ -50,6 +50,7 @@ img,canvas{ display:block; max-width:100%; }
   width:min(44vw, 360px);
   filter:brightness(0) invert(1);
   will-change:opacity;
+  transform:translateY(-76px);
 }
 
 /* ---------- Buttons ---------- */
@@ -111,7 +112,7 @@ img,canvas{ display:block; max-width:100%; }
 /* ---------- Hero ---------- */
 .hero{
   position:relative;
-  min-height:100vh;
+  min-height:calc(100vh + 190px);
   display:flex;
   align-items:flex-end;
   justify-content:center;
