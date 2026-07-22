@@ -125,14 +125,12 @@
 (function(){
   var wrap = document.getElementById('intro-logo');
   var img = document.getElementById('intro-logo-img');
-  var heroContent = document.getElementById('hero-content');
   if(!img) return;
   function fade(){
     var y = window.scrollY;
     var fadeDistance = window.innerHeight * 0.4;
     var p = Math.min(1, y / fadeDistance);
     img.style.opacity = 1 - p;
-    if (heroContent) heroContent.style.opacity = p;
     if (wrap) wrap.style.display = p >= 1 ? 'none' : 'flex';
   }
   var ticking = false;
