@@ -47,9 +47,10 @@ img,canvas{ display:block; max-width:100%; }
   pointer-events:none;
 }
 .intro-logo-img{
-  width:min(62vw, 560px);
+  width:min(70vw, 640px);
   filter:brightness(0) invert(1);
   will-change:opacity;
+  transform:translateY(150px);
 }
 
 /* ---------- Buttons ---------- */
