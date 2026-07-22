@@ -113,10 +113,10 @@ img,canvas{ display:block; max-width:100%; }
   position:relative;
   min-height:100vh;
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   justify-content:center;
   overflow:hidden;
-  padding:6rem 1.5rem 2rem;
+  padding:6rem 1.5rem 3rem;
   background:radial-gradient(ellipse at 50% 20%, #2b1d14 0%, #15100c 70%);
 }
 .hero-content{
