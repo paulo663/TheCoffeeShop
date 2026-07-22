@@ -13,32 +13,6 @@
 <div class="intro-logo" id="intro-logo" aria-hidden="true">
   <img src="products/logo.png" alt="" class="intro-logo-img" id="intro-logo-img">
 </div>
-<script>
-(function(){
-  var wrap = document.getElementById('intro-logo');
-  var img = document.getElementById('intro-logo-img');
-  if(!wrap || !img) return;
-  function fade(){
-    var y = window.scrollY;
-    var fd = window.innerHeight * 0.7;
-    var hd = window.innerHeight * 1.15;
-    var p1 = Math.min(1, y / fd);
-    var p2 = hd > fd ? Math.min(1, Math.max(0, (y - fd) / (hd - fd))) : 1;
-    wrap.style.backgroundColor = 'rgba(21,16,12,' + (1 - p1) + ')';
-    var opacity = p1 < 1 ? (1 - p1 * 0.93) : (0.07 * (1 - p2));
-    img.style.opacity = opacity;
-    img.style.transform = 'scale(' + (1 - 0.15 * p1) + ')';
-  }
-  var ticking = false;
-  window.addEventListener('scroll', function(){
-    if(!ticking){
-      requestAnimationFrame(function(){ fade(); ticking = false; });
-      ticking = true;
-    }
-  }, {passive:true});
-  fade();
-})();
-</script>
 
 <header class="nav">
   <div class="nav-inner">
@@ -51,13 +25,12 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-content reveal">
+    <div class="hero-content" id="hero-content">
       <p class="eyebrow">Nuevo en Costa Rica</p>
       <h1>Frappé de cafetería.<br>Hecho en tu casa.</h1>
       <p class="hero-sub">The Coffee Club trae el sabor que amás de tu cafetería favorita, en packs listos para preparar cuando querás, donde querás.</p>
       <a class="btn btn-pill btn-primary btn-pedir" href="https://wa.me/50688216610?text=Hola%21%20Quiero%20hacer%20mi%20pedido%20en%20The%20Coffee%20Club%20%E2%98%95" target="_blank" rel="noopener" data-msg="Hola! Quiero hacer mi pedido en The Coffee Club ☕">Pedir ahora</a>
     </div>
-    <div class="scroll-cue" aria-hidden="true"><span></span></div>
   </section>
 
   <!-- INTRO -->
@@ -103,6 +76,7 @@
       <article class="price-card reveal">
         <h3>1 Pack</h3>
         <p class="price">₡8.900</p>
+        <p class="price-yield">Rinde 8 frappés de medio litro</p>
         <a class="btn btn-pill btn-outline btn-pedir" href="https://wa.me/50688216610?text=Hola%21%20Quiero%20pedir%201%20Pack%20de%20frapp%C3%A9%20The%20Coffee%20Club%20%28%E2%82%A18.900%29%20%E2%98%95" target="_blank" rel="noopener" data-msg="Hola! Quiero pedir 1 Pack de frappé The Coffee Club (₡8.900) ☕">Pedir</a>
       </article>
 
@@ -110,22 +84,25 @@
         <span class="badge">Más popular</span>
         <h3>2 Pack</h3>
         <p class="price">₡16.900</p>
+        <p class="price-yield">Rinde 16 frappés de medio litro</p>
         <a class="btn btn-pill btn-primary btn-pedir" href="https://wa.me/50688216610?text=Hola%21%20Quiero%20pedir%202%20Pack%20de%20frapp%C3%A9%20The%20Coffee%20Club%20%28%E2%82%A116.900%29%20%E2%98%95" target="_blank" rel="noopener" data-msg="Hola! Quiero pedir 2 Pack de frappé The Coffee Club (₡16.900) ☕">Pedir</a>
       </article>
 
       <article class="price-card reveal">
         <h3>3 Pack</h3>
         <p class="price">₡23.900</p>
+        <p class="price-yield">Rinde 24 frappés de medio litro</p>
         <a class="btn btn-pill btn-outline btn-pedir" href="https://wa.me/50688216610?text=Hola%21%20Quiero%20pedir%203%20Pack%20de%20frapp%C3%A9%20The%20Coffee%20Club%20%28%E2%82%A123.900%29%20%E2%98%95" target="_blank" rel="noopener" data-msg="Hola! Quiero pedir 3 Pack de frappé The Coffee Club (₡23.900) ☕">Pedir</a>
       </article>
 
       <article class="price-card reveal">
         <h3>4 Pack</h3>
         <p class="price">₡29.900</p>
+        <p class="price-yield">Rinde 32 frappés de medio litro</p>
         <a class="btn btn-pill btn-outline btn-pedir" href="https://wa.me/50688216610?text=Hola%21%20Quiero%20pedir%204%20Pack%20de%20frapp%C3%A9%20The%20Coffee%20Club%20%28%E2%82%A129.900%29%20%E2%98%95" target="_blank" rel="noopener" data-msg="Hola! Quiero pedir 4 Pack de frappé The Coffee Club (₡29.900) ☕">Pedir</a>
       </article>
     </div>
-    <p class="iva-note reveal">Todos los precios incluyen IVA.</p>
+    <p class="iva-note reveal">Todos los precios incluyen IVA. El transporte se cobra aparte.</p>
   </section>
 
   <!-- FINAL CTA -->
@@ -144,6 +121,30 @@
   <p class="footer-fine">© <span id="year"></span> The Coffee Club. Todos los precios incluyen IVA.</p>
 </footer>
 
+<script>
+(function(){
+  var wrap = document.getElementById('intro-logo');
+  var img = document.getElementById('intro-logo-img');
+  var heroContent = document.getElementById('hero-content');
+  if(!img) return;
+  function fade(){
+    var y = window.scrollY;
+    var fadeDistance = window.innerHeight * 0.12;
+    var p = Math.min(1, y / fadeDistance);
+    img.style.opacity = 1 - p;
+    if (heroContent) heroContent.style.opacity = p;
+    if (wrap) wrap.style.display = p >= 1 ? 'none' : 'flex';
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      requestAnimationFrame(function(){ fade(); ticking = false; });
+      ticking = true;
+    }
+  }, {passive:true});
+  fade();
+})();
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="script.js"></script>
 </body>
