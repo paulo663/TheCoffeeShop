@@ -130,10 +130,9 @@ function initFlavors() {
   addLights(scene);
 
   const can = buildCan();
-  // El centro del diseño impreso en cada mitad de la textura no cae en u=0
-  // (que es el punto que mira a la cámara), sino en u≈0.27: sin este ajuste
-  // la costura entre las dos copias (zona en blanco) queda mirando al frente.
-  const LABEL_CENTER_U = 0.27;
+  // El primer frente arranca en u=0 y el pequeño hueco entre copias queda
+  // detrás (u≈0.5): sin este ajuste el hueco, no el diseño, mira al frente.
+  const LABEL_CENTER_U = 0.2381;
   can.rotation.y = -LABEL_CENTER_U * Math.PI * 2;
   scene.add(can);
   const body = can.getObjectByName("body");
