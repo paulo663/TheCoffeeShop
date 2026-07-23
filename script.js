@@ -76,21 +76,21 @@ function buildCan() {
   const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.55, metalness: 0.02 });
 
   const body = new THREE.Mesh(
-    new THREE.CylinderGeometry(CAN_RADIUS, CAN_RADIUS, CAN_BODY_HEIGHT, 64, 1, false),
+    new THREE.CylinderGeometry(CAN_RADIUS, CAN_RADIUS, CAN_BODY_HEIGHT, 128, 1, false),
     [bodyMaterial, rimMaterial, rimMaterial]
   );
   body.name = "body";
   group.add(body);
 
   const topRim = new THREE.Mesh(
-    new THREE.CylinderGeometry(CAN_RADIUS * 1.03, CAN_RADIUS * 1.005, CAN_RIM_HEIGHT, 64),
+    new THREE.CylinderGeometry(CAN_RADIUS * 1.03, CAN_RADIUS * 1.005, CAN_RIM_HEIGHT, 128),
     rimMaterial
   );
   topRim.position.y = CAN_BODY_HEIGHT / 2 + CAN_RIM_HEIGHT / 2;
   group.add(topRim);
 
   const bottomRim = new THREE.Mesh(
-    new THREE.CylinderGeometry(CAN_RADIUS * 1.005, CAN_RADIUS * 1.03, CAN_RIM_HEIGHT, 64),
+    new THREE.CylinderGeometry(CAN_RADIUS * 1.005, CAN_RADIUS * 1.03, CAN_RIM_HEIGHT, 128),
     rimMaterial
   );
   bottomRim.position.y = -(CAN_BODY_HEIGHT / 2 + CAN_RIM_HEIGHT / 2);
@@ -130,6 +130,11 @@ function initFlavors() {
   addLights(scene);
 
   const can = buildCan();
+  // El centro del diseño impreso en cada mitad de la textura no cae en u=0
+  // (que es el punto que mira a la cámara), sino en u≈0.27: sin este ajuste
+  // la costura entre las dos copias (zona en blanco) queda mirando al frente.
+  const LABEL_CENTER_U = 0.27;
+  can.rotation.y = -LABEL_CENTER_U * Math.PI * 2;
   scene.add(can);
   const body = can.getObjectByName("body");
 
@@ -154,6 +159,14 @@ function initFlavors() {
     if (!textureCache[flavor]) {
       const tex = new THREE.Texture();
       tex.encoding = THREE.sRGBEncoding;
+      // La imagen ya contiene el frente repetido dos veces (0° y 180°):
+      // se usa el UV normal del cilindro tal cual, sin repetir ni desplazar.
+      tex.wrapS = THREE.ClampToEdgeWrapping;
+      tex.wrapT = THREE.ClampToEdgeWrapping;
+      tex.repeat.set(1, 1);
+      tex.offset.set(0, 0);
+      tex.rotation = 0;
+      tex.center.set(0.5, 0.5);
       textureCache[flavor] = tex;
       loadWithRetry(FLAVORS[flavor].texture, tex, 3);
     }
