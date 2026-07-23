@@ -27,7 +27,7 @@ try {
 
 // ---------- Three.js: real product can (photo-wrapped) ----------
 const CAN_RADIUS = 1.0;
-const CAN_BODY_HEIGHT = 2.95;
+const CAN_BODY_HEIGHT = Math.PI * CAN_RADIUS;
 const CAN_RIM_HEIGHT = 0.13;
 
 const FLAVORS = {
