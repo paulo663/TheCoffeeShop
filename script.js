@@ -72,7 +72,7 @@ const WHATSAPP_NUMBER = "50688216610";
 function buildCan() {
   const group = new THREE.Group();
 
-  const rimMaterial = new THREE.MeshStandardMaterial({ color: 0x1a1512, roughness: 0.45, metalness: 0.1 });
+  const rimMaterial = new THREE.MeshStandardMaterial({ color: 0x000000, roughness: 0.45, metalness: 0.1 });
   const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.55, metalness: 0.02 });
 
   const body = new THREE.Mesh(
