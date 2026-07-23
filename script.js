@@ -29,6 +29,9 @@ try {
 const CAN_RADIUS = 1.0 * 1.05; // +5% de diámetro: lata más ancha
 const CAN_BODY_HEIGHT = (Math.PI * 1.0) * 0.90; // -10% de altura: lata más baja
 const CAN_RIM_HEIGHT = 0.13;
+// Recorte vertical (UV) del margen en blanco arriba/abajo del diseño impreso,
+// para que la etiqueta cubra un poco más del cuerpo sin tocar tapa ni base.
+const VERTICAL_CROP = { offsetY: 0.035, repeatY: 0.93 };
 
 const FLAVORS = {
   mocca: {
@@ -72,8 +75,10 @@ const WHATSAPP_NUMBER = "50688216610";
 function buildCan() {
   const group = new THREE.Group();
 
-  const rimMaterial = new THREE.MeshStandardMaterial({ color: 0x1a1512, roughness: 0.45, metalness: 0.1 });
-  const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.55, metalness: 0.02 });
+  // Metalness/roughness levemente más altos que antes: más reflejo de
+  // aluminio, pero todavía lejos de un acabado espejo (roughness alto).
+  const rimMaterial = new THREE.MeshStandardMaterial({ color: 0x1a1512, roughness: 0.35, metalness: 0.35 });
+  const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.42, metalness: 0.15 });
 
   const body = new THREE.Mesh(
     new THREE.CylinderGeometry(CAN_RADIUS, CAN_RADIUS, CAN_BODY_HEIGHT, 128, 1, false),
@@ -159,11 +164,15 @@ function initFlavors() {
       const tex = new THREE.Texture();
       tex.encoding = THREE.sRGBEncoding;
       // La imagen ya contiene el frente repetido dos veces (0° y 180°):
-      // se usa el UV normal del cilindro tal cual, sin repetir ni desplazar.
+      // se usa el UV normal del cilindro tal cual en horizontal, sin
+      // repetir ni desplazar (repeat.x/offset.x quedan en 1 y 0).
       tex.wrapS = THREE.ClampToEdgeWrapping;
       tex.wrapT = THREE.ClampToEdgeWrapping;
-      tex.repeat.set(1, 1);
-      tex.offset.set(0, 0);
+      // En vertical se recorta levemente el margen en blanco que trae la
+      // imagen arriba/abajo del diseño (sin tocar el archivo), para que
+      // la impresión llegue un poco más cerca de la tapa y la base.
+      tex.repeat.set(1, VERTICAL_CROP.repeatY);
+      tex.offset.set(0, VERTICAL_CROP.offsetY);
       tex.rotation = 0;
       tex.center.set(0.5, 0.5);
       textureCache[flavor] = tex;
