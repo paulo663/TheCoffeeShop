@@ -26,8 +26,8 @@ try {
 }
 
 // ---------- Three.js: real product can (photo-wrapped) ----------
-const CAN_RADIUS = 1.0;
-const CAN_BODY_HEIGHT = Math.PI * CAN_RADIUS;
+const CAN_RADIUS = 1.0 * 1.05; // +5% de diámetro: lata más ancha
+const CAN_BODY_HEIGHT = (Math.PI * 1.0) * 0.90; // -10% de altura: lata más baja
 const CAN_RIM_HEIGHT = 0.13;
 
 const FLAVORS = {
