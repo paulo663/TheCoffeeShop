@@ -17,6 +17,36 @@ const revealObserver = new IntersectionObserver(
 );
 document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 
+// ---------- Glowing border that follows the cursor ----------
+(function () {
+  const targets = document.querySelectorAll(".glow-target");
+  if (!targets.length) return;
+  const proximity = 80;
+
+  function update(x, y) {
+    targets.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const active =
+        x > r.left - proximity &&
+        x < r.right + proximity &&
+        y > r.top - proximity &&
+        y < r.bottom + proximity;
+      el.style.setProperty("--glow-active", active ? "1" : "0");
+      if (!active) return;
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const angle = (Math.atan2(y - cy, x - cx) * 180) / Math.PI + 90;
+      el.style.setProperty("--glow-start", angle);
+    });
+  }
+
+  window.addEventListener(
+    "pointermove",
+    (e) => update(e.clientX, e.clientY),
+    { passive: true }
+  );
+})();
+
 let webglOK = true;
 try {
   const testCanvas = document.createElement("canvas");
