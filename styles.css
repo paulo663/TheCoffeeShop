@@ -366,4 +366,8 @@ img,canvas{ display:block; max-width:100%; }
 @media (max-width: 480px){
   .pricing-grid{ grid-template-columns:1fr; }
   .hero{ padding-top:7rem; }
+  .intro-logo-img{
+    width:min(82vw, 420px);
+    transform:translateY(0);
+  }
 }
