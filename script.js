@@ -78,11 +78,11 @@ const FLAVORS = {
     msg: "Hola! Quiero pedir un frappé sabor Cappuccino Forte ☕",
   },
   chunky: {
-    name: "Chunky Chocolate",
+    name: "Sweet Chunky Chocolate",
     index: "05 / 05",
     desc: "Chocolate intenso, textura cremosa y muchísimo sabor. Perfecto para los verdaderos amantes del chocolate.",
     photo: "products/latas/chunky.png",
-    msg: "Hola! Quiero pedir un frappé sabor Chunky Chocolate ☕",
+    msg: "Hola! Quiero pedir un frappé sabor Sweet Chunky Chocolate ☕",
   },
 };
 const WHATSAPP_NUMBER = "50688216610";
