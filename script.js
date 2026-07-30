@@ -80,7 +80,7 @@ const FLAVORS = {
   chunky: {
     name: "Sweet Chunky Chocolate",
     index: "05 / 05",
-    desc: "Chocolate intenso, textura cremosa y muchísimo sabor. Perfecto para los verdaderos amantes del chocolate.",
+    desc: "Chocolate intenso, textura cremosa y muchísimo sabor, con chispas de chocolate amargo. Perfecto para los verdaderos amantes del chocolate.",
     photo: "products/latas/chunky.png",
     msg: "Hola! Quiero pedir un frappé sabor Sweet Chunky Chocolate ☕",
   },
