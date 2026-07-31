@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Números de Piloto</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="head">
+  <h1 id="titulo">Números de Piloto</h1>
+  <p id="subtitulo">Escoge tu número disponible</p>
+</header>
+
+<div id="demo-banner" class="banner hidden">
+  Modo demo: las selecciones solo se guardan en este navegador.
+</div>
+
+<nav id="tabs" class="tabs" role="tablist"></nav>
+
+<main>
+  <div class="leyenda">
+    <span><i class="chip libre"></i> Disponible</span>
+    <span><i class="chip tomado"></i> Ocupado</span>
+    <span id="contador" class="contador"></span>
+  </div>
+
+  <div id="estado" class="estado">Cargando números…</div>
+  <div id="grid" class="grid"></div>
+</main>
+
+<!-- Modal de registro -->
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <button class="cerrar" id="cancelar" aria-label="Cerrar">&times;</button>
+    <p class="modal-cat" id="modal-cat"></p>
+    <p class="modal-num" id="modal-num"></p>
+    <form id="form">
+      <label>Nombre del piloto
+        <input type="text" id="piloto" required maxlength="60" autocomplete="name" placeholder="Nombre y apellido">
+      </label>
+      <label>Escudería / equipo
+        <input type="text" id="equipo" maxlength="60" placeholder="Opcional">
+      </label>
+      <p id="error" class="error hidden"></p>
+      <button type="submit" id="enviar" class="btn">Reservar este número</button>
+    </form>
+  </div>
+</div>
+
+<!-- Confirmación -->
+<div id="ok" class="modal hidden">
+  <div class="modal-card centro">
+    <div class="check">✓</div>
+    <h2>¡Listo!</h2>
+    <p class="ok-txt">Escogiste el número <strong id="ok-num"></strong><br><span id="ok-piloto"></span></p>
+    <button class="btn" id="ok-cerrar">Volver</button>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
